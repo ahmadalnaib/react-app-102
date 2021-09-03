@@ -6,6 +6,12 @@ const ExpenseForm = () => {
   const [amount, setAmount] = useState('');
   const [date, setDate] = useState('');
 
+  // const [userInput,setUserInput]= useState({
+  //   title:"",
+  //   amount:"",
+  //   date:""
+  // });
+
   const handleTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -18,8 +24,19 @@ const ExpenseForm = () => {
     setDate(e.target.value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const expenseData = {
+      title: handleTitle,
+      amount: handleAmount,
+      date: new Date(handleDate),
+    };
+
+    console.log(expenseData);
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className='new-expense__controls'>
         <div className='new-expense__control'>
           <label>Title</label>
