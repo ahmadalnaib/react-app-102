@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
 import './ExpenseForm.css';
 
-const ExpenseForm = () => {
+const ExpenseForm = (props) => {
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const [date, setDate] = useState('');
 
-  // const [userInput,setUserInput]= useState({
-  //   title:"",
-  //   amount:"",
-  //   date:""
-  // });
+
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
   };
 
   const handleAmount = (e) => {
-    setAmount('e.target.value');
+    setAmount(e.target.value);
   };
 
   const handleDate = (e) => {
@@ -32,7 +28,10 @@ const ExpenseForm = () => {
       date: new Date(handleDate),
     };
 
-    console.log(expenseData);
+   props.onSaveExpenseData(expenseData);
+    setTitle('');
+    setAmount('');
+    setDate('');
   };
 
   return (
@@ -40,12 +39,12 @@ const ExpenseForm = () => {
       <div className='new-expense__controls'>
         <div className='new-expense__control'>
           <label>Title</label>
-          <input type='text' onChange={handleTitle} />
+          <input type='text' value={title} onChange={handleTitle} />
         </div>
 
         <div className='new-expense__control'>
           <label>Amount</label>
-          <input type='number' min='0.01' step='0.01' onChange={handleAmount} />
+          <input type='number' min='0.01' step='0.01' onChange={handleAmount} value={amount} />
         </div>
 
         <div className='new-expense__control'>
@@ -55,6 +54,7 @@ const ExpenseForm = () => {
             min='2020-01-01'
             max='2022-12-31'
             onChange={handleDate}
+            value={date}
           />
         </div>
       </div>
